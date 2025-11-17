@@ -2,9 +2,10 @@
 
 namespace App\Filament\Resources\Users\Pages;
 
-use App\Filament\Resources\Users\UserResource;
 use Filament\Actions\DeleteAction;
+use Filament\Notifications\Notification;
 use Filament\Resources\Pages\EditRecord;
+use App\Filament\Resources\Users\UserResource;
 
 class EditUser extends EditRecord
 {
@@ -15,5 +16,18 @@ class EditUser extends EditRecord
         return [
             DeleteAction::make(),
         ];
+    }
+
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
+
+    protected function getSavedNotification(): ?Notification
+    {
+        return Notification::make()
+            ->success()
+            ->title('ویرایش کاربر')
+            ->body('کاربر با موفقیت ویرایش شد');
     }
 }
