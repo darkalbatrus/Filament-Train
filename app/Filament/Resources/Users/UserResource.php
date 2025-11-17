@@ -8,6 +8,7 @@ use App\Filament\Resources\Users\Pages\ListUsers;
 use App\Filament\Resources\Users\Schemas\UserForm;
 use App\Filament\Resources\Users\Tables\UsersTable;
 use App\Models\User;
+use UnitEnum;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
@@ -20,6 +21,11 @@ class UserResource extends Resource
     protected static ?string $navigationLabel = 'کاربران';
     protected static ?string $pluralModelLabel = 'کاربران';
     protected static ?string $modelLabel = 'کابر';
+
+    protected static string | UnitEnum | null $navigationGroup = 'تنظیمات';
+    protected static ?int $navigationSort = 2;
+
+
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedUser;
 

@@ -9,6 +9,7 @@ use App\Filament\Resources\Categories\Schemas\CategoryForm;
 use App\Filament\Resources\Categories\Tables\CategoriesTable;
 use App\Models\Category;
 use BackedEnum;
+use UnitEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
@@ -20,6 +21,9 @@ class CategoryResource extends Resource
     protected static ?string $navigationLabel = 'دسته بندی ها';
     protected static ?string $pluralModelLabel = 'دسته بندی ها';
     protected static ?string $modelLabel = 'دسته بندی';
+
+    protected static string | UnitEnum | null $navigationGroup = 'محصولات';
+    protected static ?int $navigationSort = 1;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleGroup;
 
