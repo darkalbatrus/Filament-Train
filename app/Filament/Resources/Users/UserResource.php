@@ -2,21 +2,24 @@
 
 namespace App\Filament\Resources\Users;
 
-use App\Filament\Resources\Users\Pages\CreateUser;
-use App\Filament\Resources\Users\Pages\EditUser;
-use App\Filament\Resources\Users\Pages\ListUsers;
-use App\Filament\Resources\Users\Schemas\UserForm;
-use App\Filament\Resources\Users\Tables\UsersTable;
-use App\Models\User;
 use UnitEnum;
 use BackedEnum;
-use Filament\Resources\Resource;
-use Filament\Schemas\Schema;
-use Filament\Support\Icons\Heroicon;
+use App\Models\User;
 use Filament\Tables\Table;
+use Filament\Schemas\Schema;
+use Filament\Resources\Resource;
+use Hexters\HexaLite\HasHexaLite;
+use Filament\Support\Icons\Heroicon;
+use App\Filament\Resources\Users\Pages\EditUser;
+use App\Filament\Resources\Users\Pages\ListUsers;
+use App\Filament\Resources\Users\Pages\CreateUser;
+use App\Filament\Resources\Users\Schemas\UserForm;
+use App\Filament\Resources\Users\Tables\UsersTable;
 
 class UserResource extends Resource
 {
+    use HasHexaLite;
+
     protected static ?string $model = User::class;
     protected static ?string $navigationLabel = 'کاربران';
     protected static ?string $pluralModelLabel = 'کاربران';
@@ -55,6 +58,16 @@ class UserResource extends Resource
             'index' => ListUsers::route('/'),
             'create' => CreateUser::route('/create'),
             'edit' => EditUser::route('/{record}/edit'),
+        ];
+    }
+
+    public function defineGates(): array
+    {
+        return [
+            'user.index'  => __('دسترسی مشاهده لیست کاربران'),
+            'user.create' => __('دسترسی ایجاد کاربر جدید'),
+            'user.update' => __('دسترسی بروزرسانی کاربر'),
+            'user.delete' => __('دسترسی حذف کاربر'),
         ];
     }
 }

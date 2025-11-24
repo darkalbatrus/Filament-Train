@@ -2,21 +2,23 @@
 
 namespace App\Filament\Resources\Products;
 
-use App\Filament\Resources\Products\Pages\CreateProduct;
+use UnitEnum;
+use BackedEnum;
+use App\Models\Product;
+use Filament\Tables\Table;
+use Filament\Schemas\Schema;
+use Filament\Resources\Resource;
+use Hexters\HexaLite\HasHexaLite;
+use Filament\Support\Icons\Heroicon;
 use App\Filament\Resources\Products\Pages\EditProduct;
 use App\Filament\Resources\Products\Pages\ListProducts;
+use App\Filament\Resources\Products\Pages\CreateProduct;
 use App\Filament\Resources\Products\Schemas\ProductForm;
 use App\Filament\Resources\Products\Tables\ProductsTable;
-use App\Models\Product;
-use BackedEnum;
-use UnitEnum;
-use Filament\Resources\Resource;
-use Filament\Schemas\Schema;
-use Filament\Support\Icons\Heroicon;
-use Filament\Tables\Table;
 
 class ProductResource extends Resource
 {
+    use HasHexaLite;
 
     protected static ?string $model = Product::class;
     protected static ?string $navigationLabel = 'محصولات';
@@ -54,5 +56,20 @@ class ProductResource extends Resource
             'create' => CreateProduct::route('/create'),
             'edit' => EditProduct::route('/{record}/edit'),
         ];
+    }
+
+    public function defineGates(): array
+    {
+        return [
+            'product.index'  => __('دسترسی مشاهده لیست محصولات'),
+            'product.create' => __('دسترسی ایجاد محصول جدید'),
+            'product.update' => __('دسترسی بروزرسانی محصول'),
+            'product.delete' => __('دسترسی حذف محصول'),
+        ];
+    }
+
+    public static function canAccess(): bool
+    {
+        return hexa()->can('product.index');
     }
 }

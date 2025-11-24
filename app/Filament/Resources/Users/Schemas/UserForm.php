@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Users\Schemas;
 
 use Filament\Schemas\Schema;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 
 class UserForm
@@ -24,6 +25,10 @@ class UserForm
                     ->required(fn(string $context): bool => $context == 'create')
                     ->dehydrated(fn($state) => filled($state))
                     ->minLength(4),
+                Select::make('roles')
+                    ->label(__('Role Name'))
+                    ->relationship('roles', 'name')
+                    ->placeholder(__('Superuser')),
             ]);
     }
 }
