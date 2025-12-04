@@ -28,7 +28,10 @@ class UserResource extends Resource
     protected static string | UnitEnum | null $navigationGroup = 'تنظیمات';
     protected static ?int $navigationSort = 2;
 
-
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedUser;
 
